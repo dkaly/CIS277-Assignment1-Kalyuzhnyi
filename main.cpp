@@ -40,6 +40,15 @@ int main() {
     std::memcpy(p1, packet, sizeof(packet));        //8 bytes ≤ 512
     std::cout << "Binary packet written to Packet 1.\n\n";
 
+    // verify the bytes were stored correctly
+    unsigned char readback[8];
+    std::memcpy(readback, p1, sizeof(readback));      // READ back from the block
+    if (std::memcmp(readback, packet, sizeof(packet)) == 0) {
+        std::cout << "Binary packet verified in Packet 1.\n\n";
+    } else {
+        std::cout << "Binary packet verification FAILED.\n\n";
+    }
+
     //release packet 2
     pool.deallocate(p2);
     std::cout << "Packet 2 released.\n\n";
